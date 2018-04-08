@@ -11,6 +11,9 @@ before_install:
   - mysql -e "create user 'springuser'@'localhost' identified by 'password'"
   - mysql -e "grant all on spring.* to 'springuser'@'localhost' identified by 'password'"
 
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
 cache:
   directories:
     - $HOME/.m2
