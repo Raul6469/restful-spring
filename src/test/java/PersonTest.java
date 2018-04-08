@@ -27,11 +27,36 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
 @RunWith(SpringRunner.class)
+@SpringBootTest(classes = hello.Application.class)
 @WebAppConfiguration
 public class PersonTest {
+
+    private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+            MediaType.APPLICATION_JSON.getSubtype(),
+            Charset.forName("utf8"));
+
+    private MockMvc mockMvc;
+
+    @Autowired
+    private WebApplicationContext webApplicationContext;
+
+    @Autowired
+    private hello.PersonRepository personRepository;
+
+    @Before
+    public void setup() throws Exception {
+        this.mockMvc = webAppContextSetup(webApplicationContext).build();
+    }
 
     @Test
     public void BasicTest() {
         assertEquals(1, 1);
+    }
+
+    @Test
+    public void emptyPeople() throws Exception {
+        mockMvc.perform(get("/people")
+                .contentType(contentType))
+                .andExpect(status().isOk());
     }
 }
