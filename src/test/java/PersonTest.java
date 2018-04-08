@@ -59,4 +59,18 @@ public class PersonTest {
                 .contentType(contentType))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void CreatePerson() throws Exception {
+        mockMvc.perform(post("/people")
+                .content("{\n\t\"firstName\": \"Victor\",\n\t\"lastName\": \"Raul\"\n}")
+                .contentType(contentType))
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(get("/people")
+                .contentType(contentType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.people[0].firstName", is("Victor")))
+                .andExpect(jsonPath("$._embedded.people[0].lastName", is("Raul")));
+    }
 }
