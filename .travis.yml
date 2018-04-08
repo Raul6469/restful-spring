@@ -3,6 +3,14 @@ language: java
 jdk:
   - oraclejdk8
 
+services:
+  - mysql
+
+before_install:
+  - mysql -e 'CREATE DATABASE spring;'
+  - mysql -e "create user 'springuser'@'localhost' identified by 'password'"
+  - mysql -e "grant all on spring.* to 'springuser'@'localhost' identified by 'password'"
+
 cache:
   directories:
     - $HOME/.m2
