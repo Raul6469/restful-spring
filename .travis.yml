@@ -3,5 +3,5 @@ language: java
 jdk:
   - oraclejdk8
 
-script:
-  - mvn install
+notifications:
+  email: false
