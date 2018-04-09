@@ -1,7 +1,8 @@
-package hello;
+package app.repositories;
 
 import java.util.List;
 
+import app.model.Person;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
